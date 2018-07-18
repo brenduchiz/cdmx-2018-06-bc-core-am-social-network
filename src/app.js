@@ -4,7 +4,6 @@
 const registryUser = () => {
     let emailDom = document.getElementById("email").value;
     let passwordDom = document.getElementById("password").value;
-    //let nameUserr = docuemnt.getElementById("nombreRegistro").value;
     
     firebase.auth().createUserWithEmailAndPassword(emailDom, passwordDom)
     .then(function(){
@@ -23,7 +22,7 @@ const registryUser = () => {
 const enterUser = () => {
     let emailUserDom = document.getElementById("emailUser").value;
     let passwordUserDom = document.getElementById("passwordUser").value;
-    
+
     
     firebase.auth().signInWithEmailAndPassword(emailUserDom, passwordUserDom)
     .catch(function(error) {
@@ -42,7 +41,7 @@ const observer = () => {
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
             console.log("existe usuario");
-           
+            
             enterUserPrint(user);
             
           // User is signed in.
@@ -63,8 +62,6 @@ const observer = () => {
               console.log("no existe usuario");
                    // User is signed out.
                      // ...
-
-                     
             }
     });
 }
@@ -73,17 +70,11 @@ observer();
 const enterUserPrint = (user) => {
     let userr = user;
     let userPrint = document.getElementById("userName");
-    
     if (userr.emailVerified) {
-        
-        document.getElementById("delate").style.display = "none";
-        
-        userPrint.innerHTML = 
-        `
-        
-        <h4>Bienvenid@ </h4>
-        <button onclick="signOut()" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar sesión</button>
-        
+        document.getElementById("delate").style.display ="none";
+        userPrint.innerHTML = `
+        <h4>Bienvenid@</h4>
+        <button onclick="signOut()" type="button" class="btn btn-secondary" data-dismiss="modal1">Cerrar sesión</button>
         `
         ;
     }
@@ -94,9 +85,8 @@ const signOut = () => {
     firebase.auth().signOut()
     .then(function(){
         console.log("Saliendo...")
-
-        document.getElementById("userName").style.display = "none";
-        document.getElementById("delate").style.display = "block";
+        document.getElementById("userName").style.display ="none";
+        document.getElementById("delate").style.display ="block";
     })
     .catch(function(error){
         console.log(error)
