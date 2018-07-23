@@ -27,20 +27,14 @@
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 <!--===============================================================================================-->
 
-<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
-<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
-<script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyDBuQ1AtjHYyog6rpCIBaWet68dp5RJv3Y",
-    authDomain: "red-social-4d185.firebaseapp.com",
-    databaseURL: "https://red-social-4d185.firebaseio.com",
-    projectId: "red-social-4d185",
-    storageBucket: "red-social-4d185.appspot.com",
-    messagingSenderId: "1044161778600"
-  };
-  firebase.initializeApp(config);
-</script>
+<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-messaging.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-functions.js"></script>
+
+
 
 </head>
 <body style="background-color: #ffffff;">
@@ -106,7 +100,7 @@
 		  </button>
 		</div>
 		<div class="modal-body">
-			<input id="nombreRegistro" type ="text" placeholder="Ingresa tu nombre" class="form-control">
+			<input id="name" type ="text" placeholder="Ingresa tu nombre" class="form-control">
 			<div class="mt-2"></div>
 			<input id="email" type="email" placeholder="Ingresa tu email" class="form-control">
 			<div class="mt-2"></div>
@@ -123,11 +117,11 @@
 
 
 					<div class="login100-form-social flex-c-m">
-						<a href="#" class="login100-form-social-item flex-c-m bg1 m-r-5">
+						<a id ="loginFace" href="#" class="login100-form-social-item flex-c-m bg1 m-r-5">
 							<i class="fa fa-facebook-f" aria-hidden="true"></i>
 						</a>
 
-						<a href="#" class="login100-form-social-item flex-c-m bg3 m-r-5">
+						<a id= "loginGoogle" href="#" class="login100-form-social-item flex-c-m bg3 m-r-5">
 							<i class="fa fa-google" aria-hidden="true"></i>
 						</a>
 					</div>
@@ -140,7 +134,9 @@
 	</div>
 
 
-	<section id="userName"></section>
+	<section id="userName">
+			
+	</section>
 
 
 <!--===============================================================================================-->
@@ -158,10 +154,8 @@
 <!--===============================================================================================-->
 	<script src="vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
-	<script src="js/main.js"></script>
-
 	<script src="app.js"></script>
-    <script src="index.js"></script>
-
+	<!-- <script src="data.js"></script> -->
+	<script src="index.js"></script>
 </body>
 </html>
