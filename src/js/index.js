@@ -1,22 +1,5 @@
-// Inicia Firebase
-
-const config = {
-  apiKey: 'AIzaSyDBuQ1AtjHYyog6rpCIBaWet68dp5RJv3Y',
-  authDomain: 'red-social-4d185.firebaseapp.com',
-  databaseURL: 'https://red-social-4d185.firebaseio.com/',
-  projectId: 'red-social-4d185',
-  storageBucket: 'red-social-4d185.appspot.com',
-  messagingSenderId: '1044161778600'
-};
-firebase.initializeApp(config);
-
-// Variables
-
-const database = firebase.database();
-let keyUser;
-const user = firebase.auth().currentUser;
-
 // Elementos Dom
+
 const txtEmail = document.getElementById('email');
 const txtName = document.getElementById('name');
 const txtPassword = document.getElementById('password');
@@ -29,21 +12,28 @@ const buttonSingOut = document.getElementById('singOut');
 const txtPost = document.getElementById('commentary');
 const buttonPost = document.getElementById('submit');
 const post = document.getElementById('commentarys');
+const buttonFile = document.getElementById('file');
+
+
+buttonRegistry.addEventListener('click', registryUser);
+buttonEnter.addEventListener('click', enterUser);
+buttonGoogle.addEventListener('click', loginGoogle);
+buttonSingOut.addEventListener('click', signOut);
+buttonPost.addEventListener('click', writeNewCommentary);
+buttonFile.addEventListener('click', saveImage);
 
 // Verifica el usuario 
 
-let name, email, photoUrl, uid, emailVerified;
-
 const observer = () => {
   firebase.auth().onAuthStateChanged(function(user) {
-    // console.log(user);
-    if (user != null) {
+    if (user !== null) {
       name = user.displayName;
       email = user.email;
       uid = user.uid,
       photoUrl = user.photoUrl;
       console.log('existe usuario');
       enterUserPrint(user);
+      console.log(user);
       getUserName(user);
     } else {
       console.log('no existe usuario');
@@ -63,21 +53,22 @@ const registryUser = (user) => {
   let data = {
     name: name,
     email: email,
-    uid: uid
   };
   let userNew = ref.push(data);
-  keyUser = userNew.getKey();
-  console.log(keyUser); // este es el identificador de la base de datos con lo que se guarda
+  let keyUser = userNew.getKey();
+  // console.log(keyUser); // este es el identificador de la base de datos con lo que se guarda
   firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(function() {
       check();
     })
     .catch(function(error) {
       let errorCode = error.code;
-      let errorMessage = error.message;
+      let errorMessage = 'Revisa la información';
+      console.log(errorCode);
+      alert(errorMessage);
     });
-  console.log(name);
   nameDisplay(name);
+  getKeyUser(keyUser);
 };
 
 // Función guardar nombre en currentUser.displayName
@@ -95,7 +86,7 @@ const nameDisplay = (name) => {
 const check = () => {
   let user = firebase.auth().currentUser; 
   user.sendEmailVerification().then(function() {
-    console.log('Enviando Correo');
+    alert('Te enviamos un correo para que confirmes tu cuenta');
   }).catch(function(error) {
     console.log(error);
   });
@@ -103,23 +94,20 @@ const check = () => {
 
 // Registro usuario con Google
 
-let provider = new firebase.auth.GoogleAuthProvider();
-
+const provider = new firebase.auth.GoogleAuthProvider();
 const loginGoogle = () => {
   firebase.auth().signInWithPopup(provider).then(function(result) {
     let user = result.user;
-    console.log(user);
-    let ref = database.ref('user');
-    console.log(ref);
+    // console.log(user);
     let data = {
       name: user.displayName,
       uid: user.uid,
       email: user.email
     }; 
-    console.log(data);
-    database.ref('user').push(data);
+    // console.log(data);
+    database.ref('user').update(data);
     let keyUser = userNew.getKey();
-    console.log(keyUser);
+    getKeyUser(keyUser);
   })
     .catch(function(error) {
     // Handle Errors here.
@@ -133,17 +121,6 @@ const loginGoogle = () => {
     });
 };
 
-// Perfil usuario
-/*
-const profile = (data) => {
-  user.update({
-    displayName: data.name
-  }).then(function() {
-    console.log(user);
-  }).catch(function(error) {
-  });
-};
-*/
 // Ingresa el usuario
  
 const enterUser = () => {
@@ -153,19 +130,30 @@ const enterUser = () => {
   firebase.auth().signInWithEmailAndPassword(email, password)
     .catch(function(error) {
       let errorCode = error.code;
-      let errorMessage = error.message;
+      let errorMessage = 'Escribe un usuario o contraseña validos';
       console.log(errorCode);
-      console.log(errorMessage);
+      alert(errorMessage);
     });
 };
-// Traer el nombre
+// Traer el nombre del usuario activo
 const getUserName = (user) => {
   return firebase.auth().currentUser.displayName;
+};
+
+// Traer el uid del usuario activo
+const getUserUid = (user) => {
+  return firebase.auth().currentUser.uid;
 };
 
 // Traer imagen de usuario
 const getUserImage = (user) => {
   return firebase.auth().currentUser.photoUrl;
+};
+
+// Traer la llave de identificación de firebase
+const getKeyUser = (keyUser) => {
+  const keyUserLoggedIn = keyUser;
+  return keyUserLoggedIn;
 };
 
 // Se Pinta usuario 
@@ -206,7 +194,7 @@ window.onload = function() {
   });
 };
 
-// Fecha de post
+// Función para obtener fecha
 
 const datePost = () => {
   let dateFormat = new Date();
@@ -218,51 +206,30 @@ const datePost = () => {
 
 // Nuevo comentario
 
-const writeNewCommentary = (post) => {
-  post = txtPost.value;
-  let data = {
-    name: getUserName(),
-    date: datePost(),
-    post: post
-  };
-  let newPost = database.ref('post').push(data);
-  keyPost = newPost.getKey();
-  console.log(keyPost); // Llave del post
+const writeNewCommentary = () => {
+  const post = txtPost.value;
+  if (post.length === 0 || /^\s+$/.test(post)) {
+    alert('No has escrito nada');
+  } else {
+    firebase.database().ref('post').push({
+      name: getUserName(),
+      uid: getUserUid(),
+      date: datePost(),
+      post: post
+    });
+  }
 };
 
-// Eliminar comentario
+// Subir imagenes (en construcción)
+
+const saveImage = (element) => {
+  let file = element.target.files[0];
+  let storageRef = storage().ref('photos/' + file.name);
+  storageRef.put(file);
+};
+
+// Eliminar comentario (en construcción)
 
 const deletePost = (keyPost) => {
   database.ref('post').child(keyPost).remove();
 };
-
-// Función de prueba para la carga de mensajes, no funciona
-/*
-window.onload = function() {
-  database.ref('post').on('value', function(snapshot) {
-    post.innerHTML('');
-    snapshot.forEach(element => {
-      let Objeto = element.val();
-      if (Objeto.post != null) {
-        post.innerHTML += `
-    <p> ${data.val().name} dice: ${data.val().post} </p>
-    <p> ${data.val().date} </p>
-    <input onclick"deletePost()"id="delete" type="button" value="Borrar"></input>
-    `;
-      }
-    });
-  });
-};
-*/
-
-// Escuchar cambios en los mensajesno funciona
-/*
-const loadPost = () => {
-  let callback = function(snap) {
-    let data = snap.val();
-    displayMessenge(snap.key, data.name, data.text, data.profilePicUrl);
-  };
-  firebase.database().ref('post').on('child_added', callback);
-  firebase.database().ref('post').on('child_change', callback);
-};
-*/

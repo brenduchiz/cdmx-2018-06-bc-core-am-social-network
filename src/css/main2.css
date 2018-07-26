@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css?family=Pacifico');
+@import url('https://fonts.googleapis.com/css?family=Abel|Josefin+Sans|Montserrat');
+
+#delate{
+   background-color: #73CBE1;
+}
+
+#titule {
+    font-family: 'Pacifico', cursive;
+    
+}
+
+#titule2 {
+    font-family: 'Abel', sans-serif;
+    padding-top: 10px;
+    
+}
+
+
+
+.container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-top: 50px;
+}
+
+.container1 {
+    
+    padding-top: 10px;
+}
+
+
+.container3 {
+    
+    padding-top: 20px;
+}
+
+.container-button-google{
+    height: 150px;
+}
+
+.container-information{
+    
+    height: 180px;
+}
+.navbar-brand{
+font-family: 'Pacifico', cursive;
+    
+}
+
+#navegador{
+    background-color: #73CBE1;
+        
+}
+
+#card-social{
+margin-top: 30px;
+margin-left: 10px;
+}
+
+#button-topost{
+    background-color: #73CBE1; 
+    margin-top: 10px;
+}
