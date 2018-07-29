@@ -35,9 +35,10 @@ buttonRegistry.addEventListener('click', registry => {
   };
   let userNew = ref.push(data);
   let keyUser = userNew.getKey();
-  // console.log(keyUser); // este es el identificador de la base de datos con lo que se guarda
+  console.log(keyUser); // este es el identificador de la base de datos con lo que se guarda
   firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(function() {
+      window.location.assign('../views/index.html');
       check();
     })
     .catch(function(error) {
@@ -101,8 +102,13 @@ buttonGoogle.addEventListener('click', google => {
 
 buttonFacebook.addEventListener('click', facebook => {
   let provider = new firebase.auth.FacebookAuthProvider();
-  provider.addScope('public_profile');
+  console.log(provider)
+  provider = provider.addScope('public_profile');
+  console.log(provider)
   firebase.auth().signInWithPopup(provider).then(function(result) {
+    console.log(provider)
+    let token = result.credential.accesstoken;
+    console.log(token);
     let user = result.user;
     let data = {
       name: user.displayName,

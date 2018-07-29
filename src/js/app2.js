@@ -1,4 +1,3 @@
-
 // Elementos Dom
 
 const buttonSingOut = document.getElementById('singOut');
@@ -16,6 +15,7 @@ const observer = () => {
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
       console.log('existe usuario');
+      // console.log(user);
       enterUserPrint(user);
       getUserName(user);
     } else {
@@ -37,8 +37,15 @@ const getUserUid = (user) => {
 };
 
 // Traer imagen de usuario
-const getUserImage = (user) => {
-  return firebase.auth().currentUser.photoUrl;
+const getUserImage = () => {
+  let user = firebase.auth().currentUser;
+  let image;
+  if (user.providerData['0'].photoURL != null) {
+    image = user.providerData['0'].photoURL;
+  } else {
+    image = '../../images/usuario.jpg';
+  }
+  return image;
 };
 
 // Traer la llave de identificación de firebase
@@ -50,12 +57,12 @@ const getKeyUser = (keyUser) => {
 // Se Pinta usuario 
 
 const enterUserPrint = (user) => {
-  if (user.emailVerified) {
-    welcomeName.innerHTML = `Bienvenidx ${user.displayName}
-    `;
-    toPostName.innerHTML = `${user.displayName} Escribe un mensaje a tus amigos
-    `;
-  };
+  if (user) {
+    // console.log(user);
+    welcomeName.innerHTML = `Bienvenidx ${user.displayName}`;
+    // console.log(welcomeName);
+    toPostName.innerHTML = `${user.displayName} Escribe un comentario`;
+  }
 };
 
 // Cierra Sesión
@@ -71,18 +78,63 @@ buttonSingOut.addEventListener('click', e => {
     });
 });
 
+// Actualiza la información escuchando la base de datos los cambios que podría tener
+
+database.ref('post').on('value', function(snapshot) {
+  post.innerHTML = '';
+  snapshot.forEach(function(element) {
+    let data = element.val();
+    if (data != null) {
+      post.innerHTML += `
+      <div class="card border-light mb-3" style="max-width: 50rem;" id="card-social">
+          <div class="card-header" id="toPostName">
+              <img src=${data.photo} width="30px" class="img-fluid z-depth-1 rounded-circle" alt="Responsive image"></img>
+              ${data.name}
+          </div>
+          <div class="card-body">
+          <textarea class="form-control text-sm-left" readOnly id="${data.keyPost}" rows="1">${data.post}</textarea>
+            <div class="rounded-bottom mdb-color lighten-3 text-right pt-3">
+              <ul class="list-unstyled list-inline font-small" style="max-width: 50rem;">
+                <li class="list-inline-item pr-1 grey-text"> ${data.date}</li>
+                <li class="list-inline-item pr-2"><a href="#" class="white-text" onclick="deletePost ('${data.keyPost}')"><i class="far fa-trash-alt fa-xs icon"></i> Borrar</a></li>
+                <li class="list-inline-item pr-2"><a href="#" class="white-text" id ="editar${data.keyPost}" onclick="updatePost ('${data.keyPost}')"><i class="far fa-edit fa-xs icon"> </i> Editar</a></li>
+                <li class="list-inline-item"><a href="#" class="white-text"><i class="far fa-star fa-xs icon"> </i> Favorito</a></li>
+              </ul>  
+            </div>
+          </div>
+          </div>
+      `;
+    }
+  });
+});
+
 
 // Cargar comentarios en el Muro
 
-window.onload = function() {
+/* window.onload = function() {
   database.ref('post').on('child_added', function(data) {
     post.innerHTML += `
-    <p> ${data.val().name} dice: ${data.val().post} </p>
-    <p> ${data.val().date} </p>
-    <input onclick"deletePost()"id="delete" type="button" value="Borrar"></input>
+    <div class="card border-light mb-3" style="max-width: 50rem;" id="card-social">
+        <div class="card-header" id="toPostName">
+            <img src=${data.val().photo} width="30px" class="img-fluid z-depth-1 rounded-circle" alt="Responsive image"></img>
+            ${data.val().name}
+        </div>
+        <div class="card-body">
+        <textarea class="form-control text-sm-left" readOnly id="${data.val().keyPost}" rows="1">${data.val().post}</textarea>
+          <div class="rounded-bottom mdb-color lighten-3 text-right pt-3">
+            <ul class="list-unstyled list-inline font-small" style="max-width: 50rem;">
+              <li class="list-inline-item pr-1 grey-text"> ${data.val().date}</li>
+              <li class="list-inline-item pr-2"><a href="#" class="white-text" onclick="deletePost ('${data.val().keyPost}')"><i class="far fa-trash-alt fa-xs icon"></i> Borrar</a></li>
+              <li class="list-inline-item pr-2"><a href="#" class="white-text" id ="editar${data.val().keyPost}" onclick="updatePost ('${data.val().keyPost}')"><i class="far fa-edit fa-xs icon"> </i> Editar</a></li>
+              <li class="list-inline-item"><a href="#" class="white-text"><i class="far fa-star fa-xs icon"> </i> Favorito</a></li>
+            </ul>  
+          </div>
+        </div>
+        </div>
     `;
+    // console.log(post);
   });
-};
+}; */
 
 // Función para obtener fecha
 
@@ -97,30 +149,64 @@ const datePost = () => {
 // Nuevo comentario
 
 buttonPost.addEventListener('click', e => {
-  const post = txtPost.value;
+  let post = txtPost.value;
   if (post.length === 0 || /^\s+$/.test(post)) {
     alert('No has escrito nada');
   } else {
-    firebase.database().ref('post').push({
+    firebase.database().ref('post').push();
+    let postNew = firebase.database().ref('post').push();
+    let keyPost = postNew.getKey();
+    firebase.database().ref(`post/${keyPost}`).set({
       name: getUserName(),
       uid: getUserUid(),
+      photo: getUserImage(),
       date: datePost(),
-      post: post
+      post: post,
+      keyPost: keyPost
     });
   }
 });
 
+// Eliminar comentario
+
+const deletePost = (keyPost) => {
+  if (confirm('¿Quieres borrar este mensaje?')) {
+    database.ref('post').child(keyPost).remove();
+  } else {
+    return false;
+  }  
+};
+
+// Editar comentario (En construcción)
+
+const updatePost = (keyPost) => {
+  console.log(keyPost);
+  document.getElementById(keyPost).readOnly = false;
+  let buttonUpdate = document.getElementById('editar' + keyPost);
+  console.log(buttonUpdate);
+  buttonUpdate.innerHTML = 'Guardar';
+  buttonUpdate.onclick = function() {
+    let ref = database.ref('post').child(keyPost);
+    let post = document.getElementById(keyPost).value;
+    return ref.update({
+      name: getUserName(),
+      uid: getUserUid(),
+      date: datePost(),
+      post: post,
+      keyPost: keyPost
+    })
+      .then(function() {
+        buttonUpdate.innerHTML = 'Editar';
+        document.getElementById(keyPost).readOnly = true;
+      });
+  };
+}; 
 
 // Subir imagenes (en construcción)
 
-buttonFile.addEventListener('click', e => {
+/* buttonFile.addEventListener('click', e => {
   let file = element.target.files[0];
   let storageRef = storage().ref('photos/' + file.name);
   storageRef.put(file);
 });
-
-// Eliminar comentario (en construcción)
-
-const deletePost = (keyPost) => {
-  database.ref('post').child(keyPost).remove();
-};
+*/

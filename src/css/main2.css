@@ -65,3 +65,15 @@ margin-left: 10px;
     background-color: #73CBE1; 
     margin-top: 10px;
 }
+
+.icon{
+    font-size: 1em;
+    color: rgb(80, 196, 241), 255, 246);
+
+}
+
+textarea:read-Only {
+    background-color:white;
+
+  }
+
