@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Deafriend</title>
+    <link rel="stylesheet" href="../css/main2.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light " id="navegador">
+        <a class="navbar-brand" href="home.html" style="color:#ffffff;"> <img src="../../images/logo deafriend2.png" width="140px" height="50px"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#"> <span class="sr-only">(current)</span></a>
+            </li>
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="WelcomeName" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#" id="perfile">Perfil</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#" id="singOut"  >Cerrar Sesión</a>
+              </div>
+            </li>
+            
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Escribe tu busqueda" aria-label="Search">
+           
+            <button class="btn btn-outline-info my-2 my-sm-0  bg-white text-dark" type="submit">Buscar</button>
+          </form>
+        </div>
+    </nav>
+    <div class="container-information">
+        <div class="row">
+
+        <img src="../../images/señas.png" alt="cover" height="280" width="1500" class="img-fluid" alt="Responsive image">
+
+
+
+         
+        </div>
+</div>
+      <ul class="nav justify-content-center">
+            <li class="nav-item">
+            <a class="nav-link active" href="#" id="lasPost">Ultima Publicacion</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#" id="PerfilUsers">Perfil</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#">Imagenes</a>
+            </li>
+            
+        </ul>
+
+        <section id="UserInformation"> 
+                        <div class="row justify-content-md-center">
+                            <div class="col col-12   col-lg-3">
+                    
+                            </div>
+                            <div class="col col-sm-6 col-lg-6">
+
+                                    <div class="card border-light mb-3" style="max-width: 50rem;" id="card-lastPost">
+                                            <div class="card-header" id="toPostName"></div>
+                                            <div class="card-body">
+                                            <div class="form-group">
+                                            <label for="exampleFormControlTextarea1">Escribe aqui tu comentario</label>
+                                            <textarea class="form-control"id="commentary" rows="1"></textarea>
+                                            
+                                            <button type="button" class="btn btn-raised btn-secondary btn-sm" id="button-topost">
+                                            Publicar  <i class="fas fa-arrow-circle-right"></i></button>
+                                            </div>
+                                        </div>
+                                            </div>
+                                            </div>
+                            <div class="col  col-12 col-lg-3">
+                            
+                            </div>
+                      
+
+
+
+                        </div>     
+
+
+        </section>
+
+
+        
+    
+
+        </div>
+        <script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js" integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy" crossorigin="anonymous"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-messaging.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-functions.js"></script>
+    
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+        <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
+        <script src="../js/perfile.js"></script>
+      
+        
+</body>
+</html>

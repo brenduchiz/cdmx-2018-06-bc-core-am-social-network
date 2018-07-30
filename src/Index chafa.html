@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Login V18</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-messaging.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-functions.js"></script>
+
+</head>
+<body>
+    <section> Registrarte
+        <input id="name" type ="text" placeholder="Ingresa tu nombre" class="form-control">
+        <input id="email" type="email" placeholder="Ingresa tu email" class="form-control">
+        <input id="password" type ="password" placeholder="Ingresa tu contraseña" class="form-control">
+        <button type="button" class="btn btn-primary" id="registry" >Guardar</button>
+    </section>
+    <section>Ingresar Usuario
+        <input  id="emailUser" class="input100" type="text" name="email">
+        <input id="passwordUser" class="input100" type="password" name="pass">
+        <input type="button" value="Iniciar sesión" id="enter" class="login100-form-btn">   
+    </section>
+	<section>Ingresar Google
+        <button id="loginGoogle">Ingresa con Google</button>
+    </section>
+    <section id="muro">Muro
+        <span id="usuario"></span>
+        <button id="singOut" type="button" class="btn btn-secondary" data-dismiss="modal1">Cerrar sesión</button>
+        <div>
+            <input type="text" id="commentary" cols="30" rows="10"></input>
+            <button id="submit">Publicar</button>	<input id="file" name="file" type="file" size="20"> 
+        </div>
+        <div id="commentarys">Mensajes
+
+        </div>
+    </section>
+	<script src="app.js"></script>
+	<!-- <script src="data.js"></script> -->
+	<script src="index.js"></script>
+</body>
+</html>
