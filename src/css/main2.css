@@ -68,7 +68,7 @@ margin-left: 10px;
 
 .icon{
     font-size: 1em;
-    color: rgb(80, 196, 241), 255, 246);
+    color: rgb(80, 196, 241);
 
 }
 
@@ -77,3 +77,24 @@ textarea:read-Only {
 
   }
 
+  .nav {
+    
+    padding-top: 30px;
+}
+.alert{
+    
+    background-color:#CCECF4;
+    height: 500px;
+
+}
+
+.nav-link{
+    font-size: 15px;
+    color: black;
+
+}
+
+#resultLikes{
+color: orange;
+
+}

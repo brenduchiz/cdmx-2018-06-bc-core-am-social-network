@@ -9,15 +9,22 @@ const userLoggen = document.getElementById('userLoggen');
 const welcomeName = document.getElementById('WelcomeName');
 const postName = document.getElementById('toPostName');
 
+
 // Verifica el usuario 
 
 const observer = () => {
   firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
+    if (user != null) {
+      name = user.displayName;
+      email = user.email;
+      uid = user.uid;
+      photoUrl = user.photoUrl;
       console.log('existe usuario');
       // console.log(user);
       enterUserPrint(user);
       getUserName(user);
+
+      console.log(user)
     } else {
       console.log('no existe usuario');
     }
@@ -40,7 +47,7 @@ const getUserUid = (user) => {
 const getUserImage = () => {
   let user = firebase.auth().currentUser;
   let image;
-  if (user.providerData['0'].photoURL != null) {
+  if (user.providerData['0'].photoURL !== null) {
     image = user.providerData['0'].photoURL;
   } else {
     image = '../../images/usuario.jpg';
@@ -67,7 +74,7 @@ const enterUserPrint = (user) => {
 
 // Cierra Sesión
 
-buttonSingOut.addEventListener('click', e => {
+buttonSingOut.addEventListener('click', element => {
   firebase.auth().signOut()
     .then(function() {
       console.log('Saliendo...');
@@ -78,13 +85,14 @@ buttonSingOut.addEventListener('click', e => {
     });
 });
 
+
 // Actualiza la información escuchando la base de datos los cambios que podría tener
 
 database.ref('post').on('value', function(snapshot) {
   post.innerHTML = '';
   snapshot.forEach(function(element) {
     let data = element.val();
-    if (data != null) {
+    if (data !== null) {
       post.innerHTML += `
       <div class="card border-light mb-3" style="max-width: 50rem;" id="card-social">
           <div class="card-header" id="toPostName">
@@ -93,13 +101,17 @@ database.ref('post').on('value', function(snapshot) {
           </div>
           <div class="card-body">
           <textarea class="form-control text-sm-left" readOnly id="${data.keyPost}" rows="1">${data.post}</textarea>
-            <div class="rounded-bottom mdb-color lighten-3 text-right pt-3">
+            <div class="rounded-bottom mdb-c olor lighten-3 text-right pt-3">
               <ul class="list-unstyled list-inline font-small" style="max-width: 50rem;">
                 <li class="list-inline-item pr-1 grey-text"> ${data.date}</li>
                 <li class="list-inline-item pr-2"><a href="#" class="white-text" onclick="deletePost ('${data.keyPost}')"><i class="far fa-trash-alt fa-xs icon"></i> Borrar</a></li>
                 <li class="list-inline-item pr-2"><a href="#" class="white-text" id ="editar${data.keyPost}" onclick="updatePost ('${data.keyPost}')"><i class="far fa-edit fa-xs icon"> </i> Editar</a></li>
-                <li class="list-inline-item"><a href="#" class="white-text"><i class="far fa-star fa-xs icon"> </i> Favorito</a></li>
-              </ul>  
+                <li class="list-inline-item"><a href="#" class="white-text id= "like${data.keyPost}" onclick="like('${data.keyPost}')"><i class="far fa-star fa-xs icon"></i>  Favorito</a>
+                <label id="resultLikes">  ${data.like} </label> </li> 
+                <li class="list-inline-item"><a href="#" class="white-text id= "dislike${data.keyPost}" onclick="dislike('${data.keyPost}')"><i class="far fa-thumbs-down icon"></i></i>No me gusta</a>
+                </li>
+                </ul> 
+              
             </div>
           </div>
           </div>
@@ -107,7 +119,6 @@ database.ref('post').on('value', function(snapshot) {
     }
   });
 });
-
 
 // Cargar comentarios en el Muro
 
@@ -148,11 +159,12 @@ const datePost = () => {
 
 // Nuevo comentario
 
-buttonPost.addEventListener('click', e => {
+buttonPost.addEventListener('click', element => {
   let post = txtPost.value;
   if (post.length === 0 || /^\s+$/.test(post)) {
     alert('No has escrito nada');
   } else {
+    txtPost.value = '';
     firebase.database().ref('post').push();
     let postNew = firebase.database().ref('post').push();
     let keyPost = postNew.getKey();
@@ -161,6 +173,7 @@ buttonPost.addEventListener('click', e => {
       uid: getUserUid(),
       photo: getUserImage(),
       date: datePost(),
+     // likes: like(),
       post: post,
       keyPost: keyPost
     });
@@ -201,6 +214,46 @@ const updatePost = (keyPost) => {
       });
   };
 }; 
+
+let likes = 0;
+const like = (keyPost) => {
+  likes++;
+ //alert(likes);
+ let ref = database.ref('post').child(keyPost);
+ let post = document.getElementById(keyPost).value;
+ return ref.update({
+   name: getUserName(),
+   uid: getUserUid(),
+   date: datePost(),
+   post: post,
+   keyPost: keyPost,
+    like: likes
+  
+})
+
+}
+
+
+const dislike = (keyPost) => {
+  dislikes= likes--;
+ //alert(likes);
+ let ref = database.ref('post').child(keyPost);
+ let post = document.getElementById(keyPost).value;
+ return ref.update({
+   name: getUserName(),
+   uid: getUserUid(),
+   date: datePost(),
+   post: post,
+   keyPost: keyPost,
+    like: dislikes
+  
+})
+
+}
+
+
+
+
 
 // Subir imagenes (en construcción)
 

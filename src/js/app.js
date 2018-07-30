@@ -9,18 +9,18 @@ const buttonEnter = document.getElementById('enter');
 const buttonGoogle = document.getElementById('loginGoogle');
 const buttonFacebook = document.getElementById('loginFacebook');
 
-const observer = () => {
-  firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-      console.log(user);
-      console.log('existe usuario');
-      window.location.assign('../views/home.html');
-    } else {
-      console.log('no existe usuario');
-    }
-  });
-};
-observer();
+// Verifica el usuario 
+
+
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    console.log('existe usuario');
+    window.location.assign('../views/home.html');
+  } else {
+    console.log('no existe usuario');
+  }
+});
+
 
 // Registro de usuario
 
@@ -38,8 +38,9 @@ buttonRegistry.addEventListener('click', registry => {
   console.log(keyUser); // este es el identificador de la base de datos con lo que se guarda
   firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(function() {
-      window.location.assign('../views/index.html');
       check();
+      alert('Te enviamos un correo para que confirmes tu cuenta');
+      window.location.assign('../views/index.html');
     })
     .catch(function(error) {
       let errorCode = error.code;
@@ -65,7 +66,7 @@ const nameDisplay = (name) => {
 const check = () => {
   let user = firebase.auth().currentUser; 
   user.sendEmailVerification().then(function() {
-    alert('Te enviamos un correo para que confirmes tu cuenta');
+    
   }).catch(function(error) {
     console.log(error);
   });
@@ -102,11 +103,11 @@ buttonGoogle.addEventListener('click', google => {
 
 buttonFacebook.addEventListener('click', facebook => {
   let provider = new firebase.auth.FacebookAuthProvider();
-  console.log(provider)
+  console.log(provider);
   provider = provider.addScope('public_profile');
-  console.log(provider)
+  console.log(provider);
   firebase.auth().signInWithPopup(provider).then(function(result) {
-    console.log(provider)
+    console.log(provider);
     let token = result.credential.accesstoken;
     console.log(token);
     let user = result.user;
@@ -136,7 +137,9 @@ buttonFacebook.addEventListener('click', facebook => {
 buttonEnter.addEventListener('click', enter =>{
   let email = emailUser.value;
   let password = passwordUser.value;
+ 
   firebase.auth().signInWithEmailAndPassword(email, password)
+  
     .then(function() {
       setTimeout((event) => {
         window.location.reload();
