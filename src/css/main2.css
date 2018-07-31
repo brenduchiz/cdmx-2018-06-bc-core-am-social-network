@@ -39,12 +39,12 @@
 }
 
 .container-button-google{
-    height: 150px;
+    height: 40px;
 }
 
 .container-information{
     
-    height: 180px;
+    height: 190px;
 }
 .navbar-brand{
 font-family: 'Pacifico', cursive;
@@ -59,6 +59,7 @@ font-family: 'Pacifico', cursive;
 #card-social{
 margin-top: 30px;
 margin-left: 10px;
+
 }
 
 #button-topost{
@@ -83,7 +84,7 @@ textarea:read-Only {
 }
 .alert{
     
-    background-color:#CCECF4;
+    background-color:#EFEFEF;
     height: 500px;
 
 }
@@ -98,3 +99,8 @@ textarea:read-Only {
 color: orange;
 
 }
+
+#buttonInformation{
+    margin: 0px;
+}
+

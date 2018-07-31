@@ -23,6 +23,7 @@ const observer = () => {
       // console.log(user);
       enterUserPrint(user);
       getUserName(user);
+      PerfileUsers(user);
 
       console.log(user)
     } else {
@@ -66,9 +67,11 @@ const getKeyUser = (keyUser) => {
 const enterUserPrint = (user) => {
   if (user) {
     // console.log(user);
-    welcomeName.innerHTML = `Bienvenidx ${user.displayName}`;
+    welcomeName.innerHTML = `<strong>Bienvenidx </strong>${user.displayName}`;
     // console.log(welcomeName);
-    toPostName.innerHTML = `${user.displayName} Escribe un comentario`;
+    toPostName.innerHTML = `
+    
+    <strong>${user.displayName}</strong> escribe un comentario`;
   }
 };
 
@@ -106,6 +109,40 @@ database.ref('post').on('value', function(snapshot) {
                 <li class="list-inline-item pr-1 grey-text"> ${data.date}</li>
                 <li class="list-inline-item pr-2"><a href="#" class="white-text" onclick="deletePost ('${data.keyPost}')"><i class="far fa-trash-alt fa-xs icon"></i> Borrar</a></li>
                 <li class="list-inline-item pr-2"><a href="#" class="white-text" id ="editar${data.keyPost}" onclick="updatePost ('${data.keyPost}')"><i class="far fa-edit fa-xs icon"> </i> Editar</a></li>
+                <li class="list-inline-item"><a href="#" class="white-text id= "like${data.keyPost}" onclick="like('${data.keyPost}')"><i class="far fa-star fa-xs icon"></i>  Me gusta</a>
+                <label id="resultLikes">  ${data.like} </label> </li> 
+                <li class="list-inline-item"><a href="#" class="white-text id= "dislike${data.keyPost}" onclick="dislike('${data.keyPost}')"><i class="far fa-thumbs-down icon"></i></i>  No me gusta</a>
+                </li>
+                </ul> 
+              
+            </div>
+          </div>
+          </div>
+ `;
+    }
+  });
+});
+
+// Actualiza la información Post Perfile
+
+database.ref('post').on('value', function(snapshot) {
+  commentarysPerfil.innerHTML = '';
+  snapshot.forEach(function(element) {
+    let data = element.val();
+    if (data !== null) {
+      commentarysPerfil.innerHTML += `
+      <div class="card border-light mb-3" style="max-width: 50rem;" id="card-social">
+          <div class="card-header" id="toPostName">
+              <img src=${data.photo} width="30px" class="img-fluid z-depth-1 rounded-circle" alt="Responsive image"></img>
+              ${data.name}
+          </div>
+          <div class="card-body">
+          <textarea class="form-control text-sm-left" readOnly id="${data.keyPost}" rows="1">${data.post}</textarea>
+            <div class="rounded-bottom mdb-c olor lighten-3 text-right pt-3">
+              <ul class="list-unstyled list-inline font-small" style="max-width: 50rem;">
+
+                <li class="list-inline-item pr-2"><a href="#" class="white-text" onclick="deletePost ('${data.keyPost}')"><i class="far fa-trash-alt fa-xs icon"></i> Borrar</a></li>
+                <li class="list-inline-item pr-2"><a href="#" class="white-text" id ="editar${data.keyPost}" onclick="updatePost ('${data.keyPost}')"><i class="far fa-edit fa-xs icon"> </i> Editar</a></li>
                 <li class="list-inline-item"><a href="#" class="white-text id= "like${data.keyPost}" onclick="like('${data.keyPost}')"><i class="far fa-star fa-xs icon"></i>  Favorito</a>
                 <label id="resultLikes">  ${data.like} </label> </li> 
                 <li class="list-inline-item"><a href="#" class="white-text id= "dislike${data.keyPost}" onclick="dislike('${data.keyPost}')"><i class="far fa-thumbs-down icon"></i></i>No me gusta</a>
@@ -115,7 +152,10 @@ database.ref('post').on('value', function(snapshot) {
             </div>
           </div>
           </div>
-      `;
+      `
+      ;
+      
+     
     }
   });
 });
@@ -173,7 +213,6 @@ buttonPost.addEventListener('click', element => {
       uid: getUserUid(),
       photo: getUserImage(),
       date: datePost(),
-     // likes: like(),
       post: post,
       keyPost: keyPost
     });
@@ -263,3 +302,7 @@ const dislike = (keyPost) => {
   storageRef.put(file);
 });
 */
+
+
+
+

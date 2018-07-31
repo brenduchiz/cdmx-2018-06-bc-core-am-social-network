@@ -103,23 +103,19 @@ Además de ofrecer un espacio para que otras instituciones ofrezcan cursos o tal
 
 ## Historias de Usuario
 
-Israel es un estudiante Sordo de preparatoria que esta próximo a culminar sus estudios, tiene la intención de seguir a nivel superior sin embargo no conoce a ninguna persona Sorda que haya cursado la universidad.
+Los usuarios son estudiantes Sordos de preparatoria que esta próximo a culminar sus estudios, tienen la intención de seguir estudiando el nivel superior sin embargo no conocen a ninguna persona Sorda que haya cursado la universidad.
 
-El quiere estudiar la carrera de fotógrafo pero no conoce ninguna escuela que lo acepte por su condición. Ha tratado de buscar información en internet sin embargo los textos con los que se enfrenta son muy difíciles por lo que prefiere preguntar entre sus amigos, aunque ninguno de ellos tiene conocimientos al respecto.
+Ellos quieren estudiar una carrera pero no conoce ninguna escuela que los acepten por su condición. Han tratado de buscar información en internet sin embargo los textos con los que se enfrentan son muy difíciles por lo que prefieren preguntar entre sus amigos, aunque ninguno de ellos tiene conocimientos al respecto.
 
-Un amigo le ha platicado a Israel que existe una red social para personas Sordas donde personas con su misma condición platican sus experiencias educativas o bien responden las preguntas de otros que están interesados en continuar sus estudios. El también puede motivar a otros a culminar la preparatoria.
+Les han platicado que existe una red social para personas Sordas donde platican sus experiencias educativas. Esto le sirve para que otros conozcan las distintas posibilidades que tienen para seguir estudiando. Ellos también puede motivar a otros a culminar la preparatoria.
 
-El espera que esta red social le permita comunicarse de manera fácil con otros y así conocer a otras personas que como él, día con día se enfrentan a un mundo de oyentes.
+Ellos esperan que esta red social les permita comunicarse de manera fácil con otros y así conocer a otras personas que como ellos, día con día se enfrentan a un mundo de oyentes.
 
-Israel necesita que esta red social sea un espacio seguro y donde pueda platicar en confianza, por lo que espera que al momento de registrarse se utilice un lenguaje claro y sencillo que le permita seguir cada uno de los pasos.
+Los usuarios necesitan que esta red social sea un espacio seguro y donde pueda platicar en confianza, por lo que esperan que al momento de registrarse se utilice un lenguaje claro y sencillo que les permita seguir cada uno de los pasos.
 
-Una vez adentro Israel necesita que la aplicación tenga información visual que lo guie al momento de publicar algún comentario y en donde el pueda ver los comentarios de los otros usuarios. Ya que esta red social permite la interacción con personas que no conoce, para él es importante tener una imagen de su rostro para poder identificarlos. Los Sordos son personas muy visuales así que es necesariio que al momento de publicar algún comentario el pueda utilizar imagenes que podrían comprender a los demás lo que el necesita.
+Una vez registrados necesitan que la aplicación tenga información visual que los guie al momento de publicar algún comentario y en donde ellos pueda ver los comentarios de los otros usuarios. Ya que esta red social permite la interacción con personas que no conoce, para los usuarios es importante tener una imagen de su rostro para poder identificarlos. Los Sordos son personas muy visuales así que fácilmente identifica el significado de los iconos.
 
-
-
-
-
-
+Les gustaría que  al momento de escribir un mensaje ellos tuviera la oportunidad de editarlo por si al momento de escribir la redacción no sea la correcta. También quisieran eliminarlos si por algúna razón se equivocaran.
 
 
 
