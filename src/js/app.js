@@ -1,6 +1,17 @@
+// Elementos Dom
+const txtEmail = document.getElementById('email');
+const txtName = document.getElementById('name');
+const txtPassword = document.getElementById('password');
+const passwordUser = document.getElementById('passwordUser');
+const emailUser = document.getElementById('emailUser');
+const buttonRegistry = document.getElementById('registry');
+const buttonEnter = document.getElementById('enter');
+const buttonGoogle = document.getElementById('loginGoogle');
+const buttonFacebook = document.getElementById('loginFacebook');
+
 // Verifica el usuario 
-/* Por medio de esta función se verifica el estado del usuario para saber si 
-existe un registro de este en la base de datos de firebase */
+
+
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     console.log('existe usuario');
@@ -10,9 +21,37 @@ firebase.auth().onAuthStateChanged(function(user) {
   }
 });
 
+
+// Registro de usuario
+
+buttonRegistry.addEventListener('click', registry => {
+  let email = txtEmail.value;
+  let password = txtPassword.value;
+  let name = txtName.value;
+  let ref = database.ref('user');
+  let data = {
+    name: name,
+    email: email,
+  };
+  let userNew = ref.push(data);
+  let keyUser = userNew.getKey();
+  console.log(keyUser); // este es el identificador de la base de datos con lo que se guarda
+  firebase.auth().createUserWithEmailAndPassword(email, password)
+    .then(function() {
+      check();
+      alert('Te enviamos un correo para que confirmes tu cuenta');
+      //window.location.assign('../views/index.html');
+    })
+    .catch(function(error) {
+      let errorCode = error.code;
+      let errorMessage = 'Revisa la información';
+      console.log(errorCode);
+      alert(errorMessage);
+    });
+  nameDisplay(name);
+});
+
 // Función guardar nombre en currentUser.displayName
-/* Con esta función capturamos el nombre del usuario que se registro y lo actualizamos
-al perfil que nos genera automaticamente firebase */
 
 const nameDisplay = (name) => {
   firebase.auth().onAuthStateChanged(function(user) {
@@ -23,20 +62,17 @@ const nameDisplay = (name) => {
 };
 
 // Envía un mensaje de verificación al usuario
-/* Una vez que el usuario se registra se envía un correo de verificación para 
-que el usuario este al tanto de su ingreso a la red social */
 
 const check = () => {
   let user = firebase.auth().currentUser; 
   user.sendEmailVerification().then(function() {
-  //window.location.assign('../views/home.html');
+    window.location.assign('../views/home.html');
   }).catch(function(error) {
     console.log(error);
   });
 };
 
 // Registro usuario con Google
-/* Una opción que tienen el usuario es entrar utilizando una red social */
 
 buttonGoogle.addEventListener('click', google => {
   let provider = new firebase.auth.GoogleAuthProvider();
@@ -96,3 +132,23 @@ buttonFacebook.addEventListener('click', facebook => {
     });
 });
 
+// Ingresa el usuario
+
+buttonEnter.addEventListener('click', enter =>{
+  let email = emailUser.value;
+  let password = passwordUser.value;
+ 
+  firebase.auth().signInWithEmailAndPassword(email, password)
+  
+    .then(function() {
+      setTimeout((event) => {
+        window.location.reload();
+      }, 2000);
+    })
+    .catch(function(error) {
+      let errorCode = error.code;
+      let errorMessage = 'Escribe un usuario o contraseña validos';
+      console.log(errorCode);
+      alert(errorMessage);
+    });
+});

@@ -18,7 +18,7 @@
 
         <div class="container">
                 <div class="row">
-                     <h1  class="col col-sm-12 col-lg-12" id="titule" style="color:#ffffff;"><img src="../../images/logodeafriend2.png" alt="Logo deafriend" width="210" height="100" id="logoLogin"></h1> 
+                     <h1 align='center' class=" col col-sm-12 col-lg-12" id="titule" style="color:#ffffff;"><img src="../../images/logo deafriend2.png" width="210px" height="100px" ></h1> 
                       
                      
                </div>
@@ -27,7 +27,7 @@
        <div class="container1">
                 <div class="row">
                         <div class="form-group mx-auto" style="width: 200px;">
-                                <label >Email address</label>
+                                <label for="exampleInputEmail1">Email address</label>
                                 <input type="email" class="form-control text-white col-form-label-lg" id="emailUser"  placeholder="Email">
                          </div>    
                 </div>
@@ -37,7 +37,7 @@
        <div class="container2">
             <div class="row">
                     <div class="form-group mx-auto" style="width: 200px;">
-                            <label>Password</label>
+                            <label for="exampleInputPassword1">Password</label>
                             <input type="password" class="form-control text-white col-form-label-lg" id="passwordUser" placeholder="Password">
                    </div>      
             </div>
@@ -83,12 +83,12 @@
                                         </div>
                                         <!-- Registro email -->
                                         <div class="form-group">
-                                                <label id="exampleInputEmail1">Email address</label>
-                                                <input type="email" class="form-control"  id="email"  placeholder="Enter email">
+                                                <label for="exampleInputEmail1">Email address</label>
+                                                <input type="email" class="form-control"  id="email" aria-describedby="emailHelp" placeholder="Enter email">
                                        </div>
                                        <!-- Registro password -->
                                        <div class="form-group">
-                                                <label id="exampleInputPassword1">Password</label>
+                                                <label for="exampleInputPassword1">Password</label>
                                                 <input type="password" class="form-control" id="password" placeholder="Password">
                                        </div>
                                </div>
@@ -102,6 +102,8 @@
                        </div>
                </div>
        </div>
+       
+        
        
         <!--End Send Email -->
 
@@ -132,37 +134,62 @@
         <div class="modal-dialog" role="document">
                 <div class="modal-content">
                         <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel1">¿Quiénes somos?</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">¿Quiénes somos?</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                         </div>
                         <div class="modal-body">
-                                 <img src="../../images/conocenos.jpg" alt="Imagen manos"  class="ButtonCono" width="210" height="100" >
+                                <div align="center"> <img src="../../images/conocenos.jpg" width="210px" height="100px" ></div>
                                 
                        </div>
 
-                        <div  class="modal-footer ButtonCono">
+                        <div align="center" class="modal-footer">
                                Deafriend for Education
 
                                Somos una comunidad online de personas Sordas donde nos apoyamos en cuestiones académicas, 
                                
                                quien mejor que alguien con tus mismas condiciones para apoyarte en tu  camino del aprendizaje.
                                 
-                               <br>Aprende de otros y apoya a otros, cada experiencia nos ayuda a ser mejores.<br>
+                               <br>Aprende de otros y apoya a otros, cada experiencia nos ayuda a ser mejores</br>
                                 
-                            ¡Únete!   
+                                ¡Únete!   
                         </div>
                </div>
        </div>
 </div>
-       <label  class="col-lg-12 " id="titule2" style="color:#ffffff;;">Unete a la mejor comunidad online de sordos</label>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       <label align='center' class="col-lg-12" id="titule2" style="color:#ffffff;;">Unete a la mejor comunidad online de sordos</label>
        <div class="container-information">
                 <div class="row">
    
                 </div>
         </div>
 </div>    
+       
+      
 
 
 
@@ -178,7 +205,6 @@
         <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-functions.js"></script>
         
         <script src="../js/data.js"></script>
-        <script src="../js/index.js"></script>
         <script src="../js/app.js"></script>
 
 
