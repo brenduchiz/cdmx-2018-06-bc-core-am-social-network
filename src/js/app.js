@@ -4,7 +4,7 @@ existe un registro de este en la base de datos de firebase */
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     console.log('existe usuario');
-   
+    window.location.assign('../views/home.html');
   } else {
     console.log('no existe usuario');
   }
