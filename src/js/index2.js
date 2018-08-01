@@ -64,6 +64,8 @@ database.ref('post').on('value', function(snapshot) {
   snapshot.forEach(function(element) {
     let data = element.val();
     if (data !== null) {
+
+      let likes = 0
       commentarysPerfil.innerHTML += `
         <div class="card border-light mb-3" style="max-width: 50rem;" id="card-social">
             <div class="card-header" id="toPostName">
@@ -77,7 +79,7 @@ database.ref('post').on('value', function(snapshot) {
   
                   <li class="list-inline-item pr-2"><a href="#" class="white-text" onclick="deletePost ('${data.keyPost}')"><i class="far fa-trash-alt fa-xs icon"></i> Borrar</a></li>
                   <li class="list-inline-item pr-2"><a href="#" class="white-text" id ="editar${data.keyPost}" onclick="updatePost ('${data.keyPost}')"><i class="far fa-edit fa-xs icon"> </i> Editar</a></li>
-                  <li class="list-inline-item"><a href="#" class="white-text id= "like${data.keyPost}" onclick="like('${data.keyPost}')"><i class="far fa-star fa-xs icon"></i>  Favorito</a>
+                  <li class="list-inline-item"><a href="#" class="white-text id= "like ${data.keyPost}" onclick="like('${data.keyPost}')"><i class="far fa-star fa-xs icon"></i>  Favorito</a>
                   <label id="resultLikes">  ${data.like} </label> </li> 
                   <li class="list-inline-item"><a href="#" class="white-text id= "dislike${data.keyPost}" onclick="dislike('${data.keyPost}')"><i class="far fa-thumbs-down icon"></i></i>No me gusta</a>
                   </li>
@@ -111,7 +113,8 @@ buttonPost.addEventListener('click', element => {
       date: datePost(),
       // image: imagePost(),
       post: post,
-      keyPost: keyPost
+      keyPost: keyPost,
+      like: 0
     });
   }
 });

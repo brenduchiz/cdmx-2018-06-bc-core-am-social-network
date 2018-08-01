@@ -13,9 +13,22 @@
 #titule2 {
     font-family: 'Abel', sans-serif;
     padding-top: 10px;
+    text-align:center;
+    line-height:150%;
+   
+}
+
+#logoLogin {
+    display:block;
+    margin:auto;
     
 }
 
+.ButtonCono{
+    display:block;
+    margin:auto;
+    
+}
 
 
 .container {
@@ -58,7 +71,7 @@ font-family: 'Pacifico', cursive;
 
 #card-social{
 margin-top: 30px;
-margin-left: 10px;
+margin-left: 5px;
 
 }
 
@@ -119,3 +132,4 @@ color: orange;
     margin-right: 50px;
     height: 300px;
 }
+
