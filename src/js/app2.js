@@ -160,32 +160,7 @@ database.ref('post').on('value', function(snapshot) {
   });
 });
 
-// Cargar comentarios en el Muro
 
-/* window.onload = function() {
-  database.ref('post').on('child_added', function(data) {
-    post.innerHTML += `
-    <div class="card border-light mb-3" style="max-width: 50rem;" id="card-social">
-        <div class="card-header" id="toPostName">
-            <img src=${data.val().photo} width="30px" class="img-fluid z-depth-1 rounded-circle" alt="Responsive image"></img>
-            ${data.val().name}
-        </div>
-        <div class="card-body">
-        <textarea class="form-control text-sm-left" readOnly id="${data.val().keyPost}" rows="1">${data.val().post}</textarea>
-          <div class="rounded-bottom mdb-color lighten-3 text-right pt-3">
-            <ul class="list-unstyled list-inline font-small" style="max-width: 50rem;">
-              <li class="list-inline-item pr-1 grey-text"> ${data.val().date}</li>
-              <li class="list-inline-item pr-2"><a href="#" class="white-text" onclick="deletePost ('${data.val().keyPost}')"><i class="far fa-trash-alt fa-xs icon"></i> Borrar</a></li>
-              <li class="list-inline-item pr-2"><a href="#" class="white-text" id ="editar${data.val().keyPost}" onclick="updatePost ('${data.val().keyPost}')"><i class="far fa-edit fa-xs icon"> </i> Editar</a></li>
-              <li class="list-inline-item"><a href="#" class="white-text"><i class="far fa-star fa-xs icon"> </i> Favorito</a></li>
-            </ul>  
-          </div>
-        </div>
-        </div>
-    `;
-    // console.log(post);
-  });
-}; */
 
 // Función para obtener fecha
 
@@ -229,7 +204,7 @@ const deletePost = (keyPost) => {
   }  
 };
 
-// Editar comentario (En construcción)
+// Editar comentario 
 
 const updatePost = (keyPost) => {
   console.log(keyPost);
