@@ -103,6 +103,19 @@ color: orange;
 #buttonInformation{
     margin: 0px;
 }
+
 #buttonInfoUsers{
-background-color: #73CBE1; 
+    background-color: #73CBE1; 
+}
+
+#card-anuncio{
+    margin-top: 30px;
+    margin-right: 50px;
+    height: 220px;
+}
+
+#card-anuncio2{
+    margin-top: 30px;
+    margin-right: 50px;
+    height: 300px;
 }
