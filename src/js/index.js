@@ -30,7 +30,7 @@ buttonRegistry.addEventListener('click', registry => {
     .then(function() {
       check();
       alert('Te enviamos un correo para que confirmes tu cuenta');
-     
+     window.location.assign('../views/index.html');
     })
     .catch(function(error) {
       let errorCode = error.code;
@@ -55,6 +55,7 @@ buttonEnter.addEventListener('click', enter =>{
       setTimeout((event) => {
         window.location.reload();
       }, 2000);
+      window.location.assign('../views/home.html');
     })
     .catch(function(error) {
       let errorCode = error.code;

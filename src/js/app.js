@@ -29,7 +29,7 @@ que el usuario este al tanto de su ingreso a la red social */
 const check = () => {
   let user = firebase.auth().currentUser; 
   user.sendEmailVerification().then(function() {
-  window.location.assign('../views/home.html');
+  //window.location.assign('../views/home.html');
   }).catch(function(error) {
     console.log(error);
   });
