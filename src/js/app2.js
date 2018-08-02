@@ -1,20 +1,8 @@
-// Elementos Dom
-
-const buttonSingOut = document.getElementById('singOut');
-const txtPost = document.getElementById('commentary');
-const buttonPost = document.getElementById('button-topost');
-const post = document.getElementById('commentarys');
-const buttonFile = document.getElementById('file');
-const userLoggen = document.getElementById('userLoggen');
-const welcomeName = document.getElementById('WelcomeName');
-const postName = document.getElementById('toPostName');
-
-
 // Verifica el usuario 
-
+/* Función de firebase que nos ayuda a observar el estado de un usuario */
 const observer = () => {
   firebase.auth().onAuthStateChanged(function(user) {
-    if (user != null) {
+    if (user !== null) {
       name = user.displayName;
       email = user.email;
       uid = user.uid;
@@ -23,9 +11,7 @@ const observer = () => {
       // console.log(user);
       enterUserPrint(user);
       getUserName(user);
-      PerfileUsers(user);
-
-      console.log(user)
+      console.log(user);
     } else {
       console.log('no existe usuario');
     }
@@ -34,12 +20,14 @@ const observer = () => {
 observer();
 
 // Traer el nombre del usuario activo
-
+/* Con esta función podemos traer el nombre del usuario activo de acuerdo a la base de
+datos de firebase */
 const getUserName = (user) => {
   return firebase.auth().currentUser.displayName;
 };
 
 // Traer el uid del usuario activo
+/* Esta información se puede utilizar para reconocer a usuarios especificos */
 const getUserUid = (user) => {
   return firebase.auth().currentUser.uid;
 };
@@ -56,25 +44,6 @@ const getUserImage = () => {
   return image;
 };
 
-// Traer la llave de identificación de firebase
-const getKeyUser = (keyUser) => {
-  const keyUserLoggedIn = keyUser;
-  return keyUserLoggedIn;
-};
-
-// Se Pinta usuario 
-
-const enterUserPrint = (user) => {
-  if (user) {
-    // console.log(user);
-    welcomeName.innerHTML = `<strong>Bienvenidx </strong>${user.displayName}`;
-    // console.log(welcomeName);
-    toPostName.innerHTML = `
-    
-    <strong>${user.displayName}</strong> escribe un comentario`;
-  }
-};
-
 // Cierra Sesión
 
 buttonSingOut.addEventListener('click', element => {
@@ -88,80 +57,6 @@ buttonSingOut.addEventListener('click', element => {
     });
 });
 
-
-// Actualiza la información escuchando la base de datos los cambios que podría tener
-
-database.ref('post').on('value', function(snapshot) {
-  post.innerHTML = '';
-  snapshot.forEach(function(element) {
-    let data = element.val();
-    if (data !== null) {
-      post.innerHTML += `
-      <div class="card border-light mb-3" style="max-width: 50rem;" id="card-social">
-          <div class="card-header" id="toPostName">
-              <img src=${data.photo} width="30px" class="img-fluid z-depth-1 rounded-circle" alt="Responsive image"></img>
-              ${data.name}
-          </div>
-          <div class="card-body">
-          <textarea class="form-control text-sm-left" readOnly id="${data.keyPost}" rows="1">${data.post}</textarea>
-            <div class="rounded-bottom mdb-c olor lighten-3 text-right pt-3">
-              <ul class="list-unstyled list-inline font-small" style="max-width: 50rem;">
-                <li class="list-inline-item pr-1 grey-text"> ${data.date}</li>
-                <li class="list-inline-item pr-2"><a href="#" class="white-text" onclick="deletePost ('${data.keyPost}')"><i class="far fa-trash-alt fa-xs icon"></i> Borrar</a></li>
-                <li class="list-inline-item pr-2"><a href="#" class="white-text" id ="editar${data.keyPost}" onclick="updatePost ('${data.keyPost}')"><i class="far fa-edit fa-xs icon"> </i> Editar</a></li>
-                <li class="list-inline-item"><a href="#" class="white-text id= "like${data.keyPost}" onclick="like('${data.keyPost}')"><i class="far fa-star fa-xs icon"></i>  Me gusta</a>
-                <label id="resultLikes">  ${data.like} </label> </li> 
-                <li class="list-inline-item"><a href="#" class="white-text id= "dislike${data.keyPost}" onclick="dislike('${data.keyPost}')"><i class="far fa-thumbs-down icon"></i></i>  No me gusta</a>
-                </li>
-                </ul> 
-              
-            </div>
-          </div>
-          </div>
- `;
-    }
-  });
-});
-
-// Actualiza la información Post Perfile
-
-database.ref('post').on('value', function(snapshot) {
-  commentarysPerfil.innerHTML = '';
-  snapshot.forEach(function(element) {
-    let data = element.val();
-    if (data !== null) {
-      commentarysPerfil.innerHTML += `
-      <div class="card border-light mb-3" style="max-width: 50rem;" id="card-social">
-          <div class="card-header" id="toPostName">
-              <img src=${data.photo} width="30px" class="img-fluid z-depth-1 rounded-circle" alt="Responsive image"></img>
-              ${data.name}
-          </div>
-          <div class="card-body">
-          <textarea class="form-control text-sm-left" readOnly id="${data.keyPost}" rows="1">${data.post}</textarea>
-            <div class="rounded-bottom mdb-c olor lighten-3 text-right pt-3">
-              <ul class="list-unstyled list-inline font-small" style="max-width: 50rem;">
-
-                <li class="list-inline-item pr-2"><a href="#" class="white-text" onclick="deletePost ('${data.keyPost}')"><i class="far fa-trash-alt fa-xs icon"></i> Borrar</a></li>
-                <li class="list-inline-item pr-2"><a href="#" class="white-text" id ="editar${data.keyPost}" onclick="updatePost ('${data.keyPost}')"><i class="far fa-edit fa-xs icon"> </i> Editar</a></li>
-                <li class="list-inline-item"><a href="#" class="white-text id= "like${data.keyPost}" onclick="like('${data.keyPost}')"><i class="far fa-star fa-xs icon"></i>  Favorito</a>
-                <label id="resultLikes">  ${data.like} </label> </li> 
-                <li class="list-inline-item"><a href="#" class="white-text id= "dislike${data.keyPost}" onclick="dislike('${data.keyPost}')"><i class="far fa-thumbs-down icon"></i></i>No me gusta</a>
-                </li>
-                </ul> 
-              
-            </div>
-          </div>
-          </div>
-      `
-      ;
-      
-     
-    }
-  });
-});
-
-
-
 // Función para obtener fecha
 
 const datePost = () => {
@@ -172,30 +67,9 @@ const datePost = () => {
   return day = day + '/' + month + '/' + year;
 };
 
-// Nuevo comentario
-
-buttonPost.addEventListener('click', element => {
-  let post = txtPost.value;
-  if (post.length === 0 || /^\s+$/.test(post)) {
-    alert('No has escrito nada');
-  } else {
-    txtPost.value = '';
-    firebase.database().ref('post').push();
-    let postNew = firebase.database().ref('post').push();
-    let keyPost = postNew.getKey();
-    firebase.database().ref(`post/${keyPost}`).set({
-      name: getUserName(),
-      uid: getUserUid(),
-      photo: getUserImage(),
-      date: datePost(),
-      post: post,
-      keyPost: keyPost
-    });
-  }
-});
-
 // Eliminar comentario
-
+/* Esta función se llama directamente de los botones, cada botón tiene un ID único que
+permite localizar la información en la base de datos. */
 const deletePost = (keyPost) => {
   if (confirm('¿Quieres borrar este mensaje?')) {
     database.ref('post').child(keyPost).remove();
@@ -204,80 +78,34 @@ const deletePost = (keyPost) => {
   }  
 };
 
-// Editar comentario 
-
-const updatePost = (keyPost) => {
-  console.log(keyPost);
-  document.getElementById(keyPost).readOnly = false;
-  let buttonUpdate = document.getElementById('editar' + keyPost);
-  console.log(buttonUpdate);
-  buttonUpdate.innerHTML = 'Guardar';
-  buttonUpdate.onclick = function() {
-    let ref = database.ref('post').child(keyPost);
-    let post = document.getElementById(keyPost).value;
-    return ref.update({
-      name: getUserName(),
-      uid: getUserUid(),
-      date: datePost(),
-      post: post,
-      keyPost: keyPost
-    })
-      .then(function() {
-        buttonUpdate.innerHTML = 'Editar';
-        document.getElementById(keyPost).readOnly = true;
-      });
-  };
-}; 
+// Función para Likes
 
 let likes = 0;
 const like = (keyPost) => {
+  likes = 0;
   likes++;
- //alert(likes);
- let ref = database.ref('post').child(keyPost);
- let post = document.getElementById(keyPost).value;
- return ref.update({
-   name: getUserName(),
-   uid: getUserUid(),
-   date: datePost(),
-   post: post,
-   keyPost: keyPost,
+  let ref = database.ref('post').child(keyPost);
+  let post = document.getElementById(keyPost).value;
+  return ref.update({
     like: likes
-  
-})
+  });
+};
 
-}
-
-
+// Función dislikes
 const dislike = (keyPost) => {
-  dislikes= likes--;
- //alert(likes);
- let ref = database.ref('post').child(keyPost);
- let post = document.getElementById(keyPost).value;
- return ref.update({
-   name: getUserName(),
-   uid: getUserUid(),
-   date: datePost(),
-   post: post,
-   keyPost: keyPost,
+  dislikes = likes--;
+  let ref = database.ref('post').child(keyPost);
+  let post = document.getElementById(keyPost).value;
+  return ref.update({
     like: dislikes
-  
-})
-
-}
-
-
-
-
+  });
+};
 
 // Subir imagenes (en construcción)
+let imageFile;
 
-/* buttonFile.addEventListener('click', e => {
-  let file = element.target.files[0];
-  let storageRef = storage().ref('photos/' + file.name);
-  storageRef.put(file);
-});
-*/
-
-
-
-
+const imagePost = () => {
+  let image;
+  if (imageFile)
+    image = imageFile.files[0];
+};

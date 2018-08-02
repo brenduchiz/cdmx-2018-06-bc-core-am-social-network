@@ -65,7 +65,7 @@ En un segundo acercamiento al tema se decidió realizar un focus group con 5 est
 
 ![Bechmark](images/Bechmark.png)
 
-## Design Sprint
+## User Centered Design Canvas 
 
 ![Design Sprint](images/designSprint.jpg)
 

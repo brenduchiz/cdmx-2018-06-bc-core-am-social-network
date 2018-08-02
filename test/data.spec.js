@@ -1,4 +1,4 @@
-describe('app', () => {
+describe('app2', () => {
   it('debería ser una función writterNewCommentary', () => {
     assert.isFunction(writterNewCommentary);
   });
@@ -8,21 +8,21 @@ describe('app', () => {
     });
   });
 
-  it('debería ser una función deleteComment', () => {
-    assert.isFunction(deleteComment);
+  it('debería ser una función deletePost', () => {
+    assert.isFunction(deletePost);
   });
-  describe('deleteComment', () => {
+  describe('deletePost', () => {
     it('debería retornar null ', () => {
-      assert.equal(deleteComment('Hola'), null);
+      assert.equal(deletePost('Hola'), null);
     });
   });
 
-  it('debería ser una función editComment en objeto global', () => {
-    assert.isFunction(editComment);
+  it('debería ser una función updatePost', () => {
+    assert.isFunction(updatePost);
   });
-  describe('editComment', () => {
+  describe('updatePost', () => {
     it('debería retornar "Hola mundo"', () => {
-      assert.equal(editComment('Hola nundo'), 'Hola mundo');
+      assert.equal(updatePost('Hola nundo'), 'Hola mundo');
     });
   });
 });
