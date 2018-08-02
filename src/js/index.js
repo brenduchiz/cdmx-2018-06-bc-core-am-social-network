@@ -30,7 +30,7 @@ buttonRegistry.addEventListener('click', registry => {
     .then(function() {
       check();
       alert('Te enviamos un correo para que confirmes tu cuenta');
-    
+      
     })
     .catch(function(error) {
       let errorCode = error.code;
